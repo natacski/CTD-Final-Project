@@ -4,15 +4,18 @@ import { withAuthorization } from '../Session';
 import { Col, Card, Accordion, Row } from 'react-bootstrap';
 
 const NewsPage = () => {
-  const url =
-    'https://cors-anywhere.herokuapp.com/http://feeds.feedburner.com/TechCrunch/';
+  // API url
+  const url = 'https://cors-anywhere.herokuapp.com/http://feeds.feedburner.com/TechCrunch/';
 
+  // Declare a new state variable
   const [news, setNews] = useState([]);
 
+
+  // Fetching data from API
   const getNews = async () => {
     const text = await fetch(url).then((r) => r.text());
     const xmlDoc = new DOMParser().parseFromString(text, 'text/xml');
-
+  // Mapping through data items and limiting to display five
     const items = Array.from(xmlDoc.querySelectorAll("item")).slice(0,5).map(
       (item) => ({
         link: item.querySelector('link').textContent,

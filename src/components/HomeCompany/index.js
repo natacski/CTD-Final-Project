@@ -4,7 +4,6 @@ import { withAuthorization } from '../Session';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 import Logo from '../../images/logo3.png';
-// import AuthUserContext from '../Session/context';
 import {
   Container,
   Row,
@@ -16,6 +15,7 @@ import {
 } from 'react-bootstrap';
 
 const HomeSponsorsPage = () => {
+  // Declare a new state variables
   const [areaOptions, setAreaOptions] = useState({});
   const [levelOptions, setLevelsOptions] = useState({});
   const [companyName, setCompanyName] = useState('');
@@ -32,11 +32,12 @@ const HomeSponsorsPage = () => {
   //getting data for areas
   const getAreasData = async () => {
     const response = await fetch(
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/areas?api_key=keyclOytaXo7NHQ8M',
+      process.env.REACT_APP_AREAS,
     );
     const areasData = await response.json();
     return areasData;
   };
+   //Update the area options with Airtable data
   useEffect(() => {
     getAreasData().then((data) => setAreaOptions(data.records));
   }, []);
@@ -44,15 +45,17 @@ const HomeSponsorsPage = () => {
   //getting data for levels
   const getLevelsData = async () => {
     const response = await fetch(
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/levels?api_key=keyclOytaXo7NHQ8M',
+      process.env.REACT_APP_LEVELS,
     );
     const levelsData = await response.json();
     return levelsData;
   };
+   //Update the level options with Airtable data
   useEffect(() => {
     getLevelsData().then((data) => setLevelsOptions(data.records));
   }, []);
 
+  //handling changes
   const handleProjectFormChange = (e) => {
     console.log(e.target.name + ' has changed => ' + e.target.value);
     if (e.target.name === 'company-name') {
@@ -75,7 +78,7 @@ const HomeSponsorsPage = () => {
   //Posting data to new-project-form on Airtable
   const postNewSession = () => {
     fetch(
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/company-form',
+      process.env.REACT_APP_COMPANY_FORM,
       {
         body: JSON.stringify({
           records: [
@@ -264,6 +267,7 @@ const HomeSponsorsPage = () => {
                                 <option value="">
                                   Select an area
                                 </option>
+                                {/* Mapping through the area options */}
                                 {areaOptions.length > 0 &&
                                   areaOptions.map((option) => {
                                     return (
@@ -292,6 +296,7 @@ const HomeSponsorsPage = () => {
                                 <option value="">
                                   Select a level
                                 </option>
+                                  {/* Mapping through the level options */}
                                 {levelOptions.length > 0 &&
                                   levelOptions.map((option) => {
                                     return (
@@ -325,12 +330,14 @@ const HomeSponsorsPage = () => {
                         </Form>
                       </Modal.Body>
                       <Modal.Footer>
+                      {/* close form from modal */}
                         <Button
                           variant="secondary"
                           onClick={handleClose}
                         >
                           Close
                         </Button>
+                        {/* submit data inputs/select */}
                         <Button onClick={postNewSession}>
                           Submit
                         </Button>
@@ -355,6 +362,7 @@ const HomeSponsorsPage = () => {
                       </div>
                     </Card.Title>
                     <Button className="card-buttons">
+                      {/* Route to the connect page */}
                       <Link
                         to={ROUTES.CONNECT}
                         className="search-links"
@@ -375,6 +383,4 @@ const HomeSponsorsPage = () => {
 
 const condition = (authUser) => !!authUser;
 
-export default withFirebase(
-  withAuthorization(condition)(HomeSponsorsPage),
-);
+export default withFirebase(withAuthorization(condition)(HomeSponsorsPage));

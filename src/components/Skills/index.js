@@ -12,20 +12,21 @@ import {
   Container,
 } from 'react-bootstrap';
 
-
-
 const SkillsPage = () => {
+  // Declare a new state variables
   const [projectDataBySkills, setProjectDataBySkills] = useState({});
   const [skillsOptions, setSkillsOptions] = useState([]);
 
   useEffect(() => {
+    //Update the area options with Airtable data
     getSkillsOptions().then((data) => setSkillsOptions(data));
   }, []);
 
-  //getting data filter by zipcode
+  //getting data filter by level
   const getSkillsData = async (level) => {
     let url =
-      "https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M&filterByFormula=({level}='" +
+      process.env.REACT_APP_NEW_PROJECT_DATA +
+      "&filterByFormula=({level}='" +
       level +
       "')";
     const response = await fetch(url);
@@ -33,15 +34,15 @@ const SkillsPage = () => {
     setProjectDataBySkills(skillsData);
   };
 
+  //Get input options data from the project form
   const getSkillsOptions = async () => {
-    let url = process.env.REACT_APP_NEW_PROJECT_DATA;
-      // 'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
-    const response = await fetch(url);
+    let url = process.env.REACT_APP_NEW_PROJECT_DATA; //.env variables
+    const response = await fetch(url); //fetching database
     const skillsOptionsData = await response.json();
     let uniqueSkills = [
       ...new Set(
         skillsOptionsData.records.map(
-          (record) => record.fields.level,
+          (record) => record.fields.level, //mapping through area data
         ),
       ),
     ];
@@ -62,9 +63,11 @@ const SkillsPage = () => {
                 <Form.Control
                   as="select"
                   custom
+                  // Getting area values
                   onChange={(e) => getSkillsData(e.target.value)}
                 >
                   <option>Select a Level</option>
+                  {/* Mapping through options  */}
                   {skillsOptions.length > 0 &&
                     skillsOptions.map((option, i) => {
                       return (
@@ -90,6 +93,7 @@ const SkillsPage = () => {
               >
                 Search Results...
               </ListGroup.Item>
+              {/* Mapping through the skills items */}
               {projectDataBySkills.records &&
                 projectDataBySkills.records.length > 0 &&
                 projectDataBySkills.records.map((item) => {
@@ -109,6 +113,7 @@ const SkillsPage = () => {
           <Col></Col>
           <Col xs={4} md={2}>
             <Button className="search-buttons">
+              {/* Linking results to the project details page  */}
               <Link to={ROUTES.CONNECT} className="search-links">
                 Search Options
               </Link>
@@ -123,7 +128,4 @@ const SkillsPage = () => {
 
 const condition = (authUser) => !!authUser;
 
-export default withFirebase(
-  withAuthorization(condition)(SkillsPage),
-);
-
+export default withFirebase(withAuthorization(condition)(SkillsPage));

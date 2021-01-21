@@ -17,7 +17,7 @@ import Logo from '../../images/image1.png';
 import Logo1 from '../../images/image2.png';
 
 const HomePage = (props) => {
-  
+  // Declare a new state variables
   const user = useContext(AuthUserContext);
   const [areaOptions, setAreaOptions] = useState({});
   const [levelOptions, setLevelsOptions] = useState({});
@@ -40,7 +40,7 @@ const HomePage = (props) => {
   //getting data for areas
   const getAreasData = async () => {
     const response = await fetch(
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/areas?api_key=keyclOytaXo7NHQ8M',
+      process.env.REACT_APP_AREAS,
     );
     const areasData = await response.json();
     return areasData;
@@ -69,7 +69,7 @@ const HomePage = (props) => {
   //getting data for levels
   const getLevelsData = async () => {
     const response = await fetch(
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/levels?api_key=keyclOytaXo7NHQ8M',
+      process.env.REACT_APP_LEVELS,
     );
     const levelsData = await response.json();
     return levelsData;
@@ -109,7 +109,7 @@ const HomePage = (props) => {
   //Posting data to new-project-form on Airtable
   const postNewSession = () => {
     fetch(
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form',
+     process.env.REACT_APP_PROJECT_FORM,
       {
         body: JSON.stringify({
           records: [
@@ -137,6 +137,7 @@ const HomePage = (props) => {
         method: 'POST',
       },
     )
+    //save changes and resets the form
       .then(() => {
         console.log('saved changes');
         setFirstName('');
@@ -168,6 +169,7 @@ const HomePage = (props) => {
               <Card.Img variant="top" src={Logo1} />
               <Card.Body>
                 <Card.Title>Do you have any project idea?</Card.Title>
+                {/* displays the modal form */}
                 <Button onClick={handleShow}>Add a Project</Button>
                 <Modal
                   size="lg"
@@ -195,7 +197,7 @@ const HomePage = (props) => {
                             name="first-name"
                             id="first-name"
                             type="text"
-                            value={firstName}
+                            value={firstName} 
                           />
                         </Col>
                         <Col>
@@ -287,6 +289,7 @@ const HomePage = (props) => {
                           >
                             {/* Getting the area options from airtable */}
                             <option value="">Select an area</option>
+                              {/* Mapping through the area options */}
                             {areaOptions.length > 0 &&
                               areaOptions.map((option) => {
                                 return (
@@ -312,6 +315,7 @@ const HomePage = (props) => {
                           >
                             {/* Getting the level options from airtable */}
                             <option value="">Select a level</option>
+                             {/* Mapping through the level options */}
                             {levelOptions.length > 0 &&
                               levelOptions.map((option) => {
                                 return (
@@ -360,6 +364,7 @@ const HomePage = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                       Close
                     </Button>
+                    {/* submits the form values  */}
                     <Button onClick={postNewSession}>Submit</Button>
                   </Modal.Footer>
                 </Modal>
@@ -376,9 +381,9 @@ const HomePage = (props) => {
                   Looking for a project to join?
                 </Card.Title>
                 <Button>
+                    {/* Route to the connect page */}
                   <Link className="search-links"
                     to={ROUTES.CONNECT}
-                   
                   >
                     Find a Project
                   </Link>

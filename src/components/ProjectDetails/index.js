@@ -4,16 +4,14 @@ import { withAuthorization } from '../Session';
 import { Container, Col, Row, ListGroup } from 'react-bootstrap';
 
 const ProjectDetails = () => {
+  // Declare a new state variables
   const [projectDataById, setProjectDataById] = useState({});
 
   //getting data by zipcode
   const getProject = async () => {
     let urlParams = new URLSearchParams(window.location.search);
     let projectId = urlParams.get('id');
-    let url =
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form/' +
-      projectId +
-      '?api_key=keyclOytaXo7NHQ8M';
+    let url =  process.env.REACT_APP_PROJECT_FORM + projectId + '?api_key=' +  process.env.REACT_APP_AIRTABLE_API_KEY; //.env variable
     const response = await fetch(url);
     const projectData = await response.json();
     setProjectDataById(projectData.fields);
@@ -30,9 +28,11 @@ const ProjectDetails = () => {
           <Col>
             <div>
               <h4>
+                  {/* displays updated items from the table*/}
                 {projectDataById && projectDataById.projectTitle}
               </h4>
               <br></br>
+                 {/* displays updated items from the table*/}
               {projectDataById && projectDataById.projectDescription}
             </div>
           </Col>
@@ -50,10 +50,8 @@ const ProjectDetails = () => {
                 </svg>
                 <div className="details-title">Idea From: </div>
 
-                {projectDataById &&
-                  projectDataById.firstName +
-                    ' ' +
-                    projectDataById.lastName}
+                {/* displays updated items from the table*/}
+                {projectDataById && projectDataById.firstName + ' ' +  projectDataById.lastName}
               </ListGroup.Item>
 
               <ListGroup.Item>
@@ -74,7 +72,7 @@ const ProjectDetails = () => {
                 <div className="details-title">
                   Number of Contributors:{' '}
                 </div>
-
+               {/* displays updated items from the table*/}
                 {projectDataById && projectDataById.numOfContributors}
               </ListGroup.Item>
               <ListGroup.Item>
@@ -90,6 +88,7 @@ const ProjectDetails = () => {
                   <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5v2z" />
                 </svg>
                 <div className="details-title">Area: </div>
+                 {/* displays updated items from the table*/}
                 {projectDataById && projectDataById.area}
               </ListGroup.Item>
               <ListGroup.Item>
@@ -108,6 +107,7 @@ const ProjectDetails = () => {
                   <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>
                 <div className="details-title">Level: </div>
+                 {/* displays updated items from the table*/}
                 {projectDataById && projectDataById.level}
               </ListGroup.Item>
 
@@ -123,6 +123,7 @@ const ProjectDetails = () => {
                   <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
                 </svg>
                 <div className="details-title">Zip Code: </div>
+                 {/* displays updated items from the table*/}
                 {projectDataById && projectDataById.zipcode}
               </ListGroup.Item>
 
@@ -130,6 +131,7 @@ const ProjectDetails = () => {
                 Do you want to be part of this project? For more
                 details please contact
                 <div className="details-title">
+                 {/* displays updated items from the table*/}
                   {projectDataById && projectDataById.email}
                 </div>
               </ListGroup.Item>
@@ -143,6 +145,4 @@ const ProjectDetails = () => {
 
 const condition = (authUser) => !!authUser;
 
-export default withFirebase(
-  withAuthorization(condition)(ProjectDetails),
-);
+export default withFirebase(withAuthorization(condition)(ProjectDetails));
