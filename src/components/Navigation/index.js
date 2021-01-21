@@ -9,9 +9,11 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Logo from '../../images/logo2.png';
 
 const NavigationAuth = (props) => {
+  // Declare a new state variables
   const user = useContext(AuthUserContext);
   const [isInnovator, setIsInnovator] = useState(false);
 
+  //setting innovator session
   useEffect(() => {
     props.firebase.db
       .ref('users/' + user.uid)
@@ -35,7 +37,7 @@ const NavigationAuth = (props) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         {isInnovator ? (
           <Nav className="mr-auto">
-          {/* changing routes */}
+          {/* defining routes for innovator */}
             <Link
               to={isInnovator ? ROUTES.HOME : ROUTES.HOMECOMPANY}
               className="nav-links"
@@ -59,6 +61,7 @@ const NavigationAuth = (props) => {
           </Nav>
         ) : (
           <Nav className="mr-auto">
+           {/* defining routes for company */}
             <Link
               to={isInnovator ? ROUTES.HOME : ROUTES.HOMECOMPANY}
               className="nav-links"
@@ -88,7 +91,7 @@ const NavigationAuth = (props) => {
             }
             id="dropdown-menu-align-right"
           >
-            {' '}
+           {/* routes for company and innovator sessions */}
             <NavDropdown.Item>
               <Link to={ROUTES.PROFILE}>Profile</Link>
             </NavDropdown.Item>
@@ -107,6 +110,4 @@ const NavigationAuth = (props) => {
 
 const condition = (authUser) => !!authUser;
 
-export default withFirebase(
-  withAuthorization(condition)(NavigationAuth),
-);
+export default withFirebase(withAuthorization(condition)(NavigationAuth));

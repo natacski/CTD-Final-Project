@@ -2,8 +2,7 @@ import React from 'react';
 import SignInPage from '../SignIn';
 import { Container, Row, Col } from 'react-bootstrap';
 import Logo from '../../images/logo1.png';
-// import * as ROUTES from '../../constants/routes';
-// import { Link } from 'react-router-dom';
+
 
 const Landing = () => (
   <div className="landingPage">

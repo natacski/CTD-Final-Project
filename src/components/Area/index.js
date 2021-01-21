@@ -12,36 +12,33 @@ import {
   Container,
 } from 'react-bootstrap';
 
-
 const AreaPage = () => {
+  // Declare a new state variables
   const [projectDataByArea, setProjectDataByArea] = useState({});
   const [areaOptions, setAreaOptions] = useState([]);
 
+  //Update the area options with Airtable data
   useEffect(() => {
     getAreaOptions().then((data) => setAreaOptions(data));
   }, []);
 
-  //getting data by zipcode
+  //Fetch data by area
   const getAreaData = async (area) => {
-    // let url = process.env.REACT_APP_AREA_DATA_FILTER + area;
     let url =
-      "https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M&filterByFormula=({area}='" +
-      area +
-      "')";
+      process.env.REACT_APP_NEW_PROJECT_DATA + "&filterByFormula=({area}='" + area + "')";
     const response = await fetch(url);
     const areaData = await response.json();
     setProjectDataByArea(areaData);
   };
 
+  //Get input options data from the project form
   const getAreaOptions = async () => {
-    // let url = process.env.REACT_APP_AREA_DATA;
-    let url = process.env.REACT_APP_NEW_PROJECT_DATA;
-      // 'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
-    const response = await fetch(url);
+    let url = process.env.REACT_APP_NEW_PROJECT_DATA; //.env variables
+    const response = await fetch(url); //fetching database
     const areaOptionsData = await response.json();
     let uniqueAreas = [
       ...new Set(
-        areaOptionsData.records.map((record) => record.fields.area),
+        areaOptionsData.records.map((record) => record.fields.area), //mapping through area data
       ),
     ];
     return uniqueAreas.sort();
@@ -60,8 +57,10 @@ const AreaPage = () => {
                 <Form.Control
                   as="select"
                   custom
+                  // Getting area values
                   onChange={(e) => getAreaData(e.target.value)}
                 >
+                  {/* Mapping through options  */}
                   <option>Select an area</option>
                   {areaOptions.length > 0 &&
                     areaOptions.map((option, i) => {
@@ -88,11 +87,13 @@ const AreaPage = () => {
               >
                 Search Results...
               </ListGroup.Item>
+              {/* Mapping through the area items */}
               {projectDataByArea.records &&
                 projectDataByArea.records.length > 0 &&
                 projectDataByArea.records.map((item) => {
                   return (
                     <ListGroup.Item as="li">
+                      {/* Linking results to the project details page  */}
                       <a href={'../ProjectDetails?id=' + item.id}>
                         {item.fields.projectTitle}
                       </a>
@@ -107,6 +108,7 @@ const AreaPage = () => {
           <Col></Col>
           <Col xs={4} md={2}>
             <Button className="search-buttons">
+              {/* Route to the connect page */}
               <Link to={ROUTES.CONNECT} className="search-links">
                 Search Options
               </Link>

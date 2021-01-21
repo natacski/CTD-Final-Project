@@ -14,15 +14,15 @@ import {
 } from 'react-bootstrap';
 
 const LocationPage = () => {
+   // Declare a new state variables
   const [zipCode, setZipCode] = useState('');
   const [projectDataByZip, setProjectDataByZip] = useState({});
 
   //getting data by zipcode
   const getZipCodeData = async () => {
-    let url =
-      "https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M&filterByFormula=({zipcode}='" +
+    let url = process.env.REACT_APP_NEW_PROJECT_DATA + "&filterByFormula=({zipcode}='" +
       zipCode +
-      "')";
+      "')"; //.env variables filter by zipcode
     const response = await fetch(url);
     const zipCodeData = await response.json();
     setProjectDataByZip(zipCodeData);
@@ -41,13 +41,15 @@ const LocationPage = () => {
                 placeholder="Zip Code"
                 aria-label="Zip Code"
                 aria-describedby="basic-addon2"
+                 // Getting zipcode values
                 onChange={(e) => {
                   setZipCode(e.target.value);
                 }}
               />
               <InputGroup.Append>
                 <Button
-                  onClick={getZipCodeData}
+                //Setting zipcode data
+                  onClick={getZipCodeData} 
                   variant="outline-secondary"
                 >
                   <svg
@@ -77,11 +79,13 @@ const LocationPage = () => {
               >
                 Search Results...
               </ListGroup.Item>
+                {/* Mapping through options  */}
               {projectDataByZip.records &&
                 projectDataByZip.records.length > 0 &&
                 projectDataByZip.records.map((item) => {
                   return (
                     <ListGroup.Item as="li">
+                     {/* Linking results to the project details page  */}
                       <a href={'../ProjectDetails?id=' + item.id}>
                         {item.fields.projectTitle}
                       </a>
@@ -96,6 +100,7 @@ const LocationPage = () => {
           <Col></Col>
           <Col xs={4} md={2}>
             <Button className="search-buttons">
+              {/* Route to the connect page */}
               <Link to={ROUTES.CONNECT} className="search-links">
                 Search Options
               </Link>

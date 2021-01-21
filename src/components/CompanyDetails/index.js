@@ -12,17 +12,15 @@ import {
 } from 'react-bootstrap';
 
 const CompanyDetails = () => {
+  // Declare a new state variables
   const [companyDataById, setCompanyDataById] = useState({});
 
   //getting data by zipcode
   const getCompanyData = async () => {
     let urlParams = new URLSearchParams(window.location.search);
     let companyId = urlParams.get('id');
-    let url =
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/company-form/' +
-      companyId +
-      '?api_key=keyclOytaXo7NHQ8M';
-    const response = await fetch(url);
+    let url = process.env.REACT_APP_COMPANY_FORM + companyId + '?api_key=' + process.env.REACT_APP_AIRTABLE_API_KEY; //.env variable
+    const response = await fetch(url); //fetching database
     const companyData = await response.json();
     setCompanyDataById(companyData.fields);
   };
@@ -40,6 +38,7 @@ const CompanyDetails = () => {
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <h4>
+                 {/* displays updated items from the table*/}
                   {companyDataById && companyDataById.companyName}
                 </h4>
               </ListGroup.Item>
@@ -56,6 +55,7 @@ const CompanyDetails = () => {
                 </svg>
                 <div className="details-title">Website:</div>
 
+               {/* displays updated items from the table*/}
                 {companyDataById && companyDataById.website}
               </ListGroup.Item>
 
@@ -75,10 +75,11 @@ const CompanyDetails = () => {
                   Sponsorship Amount:
                 </div>
 
+                {/* displays updated items from the table*/}
                 {companyDataById && companyDataById.amount}
               </ListGroup.Item>
               <ListGroup.Item>
-              <svg
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
@@ -90,6 +91,8 @@ const CompanyDetails = () => {
                   <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5v2z" />
                 </svg>
                 <div className="details-title">Area: </div>
+
+                  {/* displays updated items from the table*/}
                 {companyDataById && companyDataById.area}
               </ListGroup.Item>
               <ListGroup.Item>
@@ -107,8 +110,9 @@ const CompanyDetails = () => {
                   />
                   <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>
-               
+
                 <div className="details-title">Level: </div>
+                {/* displays updated items from the table*/}
                 {companyDataById && companyDataById.level}
               </ListGroup.Item>
               <ListGroup.Item>
@@ -123,6 +127,8 @@ const CompanyDetails = () => {
                   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
                 </svg>
                 <div className="details-title">Contact:</div>
+
+                {/* displays updated items from the table*/}
                 {companyDataById && companyDataById.email}
               </ListGroup.Item>
               <ListGroup.Item>
@@ -137,6 +143,8 @@ const CompanyDetails = () => {
                   <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                 </svg>
                 <div className="details-title">Posted on:</div>
+
+                   {/* displays updated items from the table*/}
                 {companyDataById && companyDataById.updated}
               </ListGroup.Item>
             </ListGroup>
@@ -147,6 +155,7 @@ const CompanyDetails = () => {
           <Col></Col>
           <Col xs={4} md={2}>
             <Button className="search-buttons">
+               {/* displays updated items from the table*/}
               <Link to={ROUTES.SPONSORS} className="search-links">
                 More Sponsors
               </Link>
@@ -161,6 +170,4 @@ const CompanyDetails = () => {
 
 const condition = (authUser) => !!authUser;
 
-export default withFirebase(
-  withAuthorization(condition)(CompanyDetails),
-);
+export default withFirebase( withAuthorization(condition)(CompanyDetails));

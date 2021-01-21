@@ -5,12 +5,14 @@ import AuthUserContext from '../Session/context';
 import { Button, Col, Row, ListGroup } from 'react-bootstrap';
 
 const ProfilePage = (props) => {
+    // Declare a new state variables
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [innovator, setInnovator] = useState(false);
 
   const user = useContext(AuthUserContext);
 
+  // getin users values from firebase
   const getUserProfile = () => {
     props.firebase.db
       .ref('users/' + user.uid)
@@ -23,6 +25,7 @@ const ProfilePage = (props) => {
       });
   };
 
+  //saves new data
   const saveChanges = () => {
     props.firebase.db
       .ref('users/' + user.uid)
@@ -36,6 +39,7 @@ const ProfilePage = (props) => {
       });
   };
 
+   //Updates the data
   useEffect(() => {
     getUserProfile();
   }, []);
@@ -88,6 +92,4 @@ const ProfilePage = (props) => {
 
 const condition = (authUser) => !!authUser;
 
-export default withFirebase(
-  withAuthorization(condition)(ProfilePage),
-);
+export default withFirebase(withAuthorization(condition)(ProfilePage));

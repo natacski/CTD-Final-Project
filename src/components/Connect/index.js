@@ -12,6 +12,7 @@ const ConnectPage = () => {
       <CardDeck style={{ margin: 30 }}>
         <Card style={{ background: '#cb6ce6' }}>
           <Card.Body className="space">
+            {/* Route to the area page */}
             <Link to={ROUTES.AREA} className="box-title">
               Area of Study
             </Link>
@@ -19,6 +20,7 @@ const ConnectPage = () => {
         </Card>
         <Card style={{ background: '#4fc8dc' }}>
           <Card.Body className="space">
+            {/* Route to the location page */}
             <Link to={ROUTES.LOCATION} className="box-title">
               By Location
             </Link>
@@ -26,6 +28,7 @@ const ConnectPage = () => {
         </Card>
         <Card style={{ background: '#faa94a' }}>
           <Card.Body className="space">
+            {/* Route to the skills page */}
             <Link to={ROUTES.SKILLS} className="box-title">
               Skills Level
             </Link>

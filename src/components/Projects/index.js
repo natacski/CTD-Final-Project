@@ -3,19 +3,12 @@ import { Table } from 'react-bootstrap';
 import { withFirebase } from '../Firebase';
 import { withAuthorization } from '../Session';
 
-// import AuthUserContext from '../Session/context';
-
 const ProjectsPage = () => {
-  // const user = useContext(AuthUserContext);
   const [projects, setProjects] = useState({});
 
   //getting data by zipcode
   const getProjectsData = async () => {
-    console.log(process.env.REACT_APP_NEW_PROJECT_DATA);
-    let url = process.env.REACT_APP_NEW_PROJECT_DATA;
-        
-      // 'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
-    // const response = await fetch(process.env.REACT_APP_PROJECTS_LIST);
+    let url = process.env.REACT_APP_NEW_PROJECT_DATA; //.env variable
     const response = await fetch(url);
     const items = await response.json();
     return items;
@@ -38,7 +31,7 @@ const ProjectsPage = () => {
             <th>Level</th>
           </tr>
         </thead>
-
+        {/* maps through project items */}
         {projects.records &&
           projects.records.length > 0 &&
           projects.records.map((item) => {
@@ -46,6 +39,7 @@ const ProjectsPage = () => {
               <tbody>
                 <tr>
                   <td>
+                    {/* Links data results with details page */}
                     <a href={'../ProjectDetails?id=' + item.id}>
                       {item.fields.projectTitle}
                     </a>
