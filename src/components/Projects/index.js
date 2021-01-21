@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Table } from 'react-bootstrap';
 import { withFirebase } from '../Firebase';
 import { withAuthorization } from '../Session';
+
 // import AuthUserContext from '../Session/context';
 
 const ProjectsPage = () => {
@@ -10,8 +11,10 @@ const ProjectsPage = () => {
 
   //getting data by zipcode
   const getProjectsData = async () => {
-    let url =
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
+    console.log(process.env.REACT_APP_NEW_PROJECT_DATA);
+    let url = process.env.REACT_APP_NEW_PROJECT_DATA;
+        
+      // 'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
     // const response = await fetch(process.env.REACT_APP_PROJECTS_LIST);
     const response = await fetch(url);
     const items = await response.json();
@@ -43,7 +46,7 @@ const ProjectsPage = () => {
               <tbody>
                 <tr>
                   <td>
-                    <a href={'/ProjectDetails?id=' + item.id}>
+                    <a href={'../ProjectDetails?id=' + item.id}>
                       {item.fields.projectTitle}
                     </a>
                   </td>

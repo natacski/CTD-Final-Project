@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import * as ROUTES from '../../constants/routes';
+import { Link } from 'react-router-dom';
+import { withFirebase } from '../Firebase';
+import { withAuthorization } from '../Session';
 import {
   Button,
   Col,
@@ -7,10 +11,7 @@ import {
   Form,
   Container,
 } from 'react-bootstrap';
-import * as ROUTES from '../../constants/routes';
-import { Link } from 'react-router-dom';
-import { withFirebase } from '../Firebase';
-import { withAuthorization } from '../Session';
+
 
 const AreaPage = () => {
   const [projectDataByArea, setProjectDataByArea] = useState({});
@@ -22,6 +23,7 @@ const AreaPage = () => {
 
   //getting data by zipcode
   const getAreaData = async (area) => {
+    // let url = process.env.REACT_APP_AREA_DATA_FILTER + area;
     let url =
       "https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M&filterByFormula=({area}='" +
       area +
@@ -32,8 +34,9 @@ const AreaPage = () => {
   };
 
   const getAreaOptions = async () => {
-    let url =
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
+    // let url = process.env.REACT_APP_AREA_DATA;
+    let url = process.env.REACT_APP_NEW_PROJECT_DATA;
+      // 'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
     const response = await fetch(url);
     const areaOptionsData = await response.json();
     let uniqueAreas = [
