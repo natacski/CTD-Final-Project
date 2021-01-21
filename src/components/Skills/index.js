@@ -34,8 +34,8 @@ const SkillsPage = () => {
   };
 
   const getSkillsOptions = async () => {
-    let url =
-      'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
+    let url = process.env.REACT_APP_NEW_PROJECT_DATA;
+      // 'https://api.airtable.com/v0/appjvJEkIJyX9bcmM/new-project-form?api_key=keyclOytaXo7NHQ8M';
     const response = await fetch(url);
     const skillsOptionsData = await response.json();
     let uniqueSkills = [

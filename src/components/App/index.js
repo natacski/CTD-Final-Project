@@ -23,13 +23,13 @@ import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 
 const App = () => (
-  
   <Router>
     <div>
       <Navigation />
 
+      {/* Main Routes */}
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
-          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+      <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
       <Route
         path={ROUTES.PASSWORD_FORGET}
@@ -49,8 +49,8 @@ const App = () => (
       <Route path={ROUTES.PROJECTDETAILS} component={ProjectDetails} />
       <Route path={ROUTES.PROFILE} component={ProfilePage} />
       <Route path={ROUTES.COMPANYDETAILS} component={CompanyDetails} />
-   
-      {/* Routes for Companies */}
+
+      {/* Routes for Company */}
       <Route path={ROUTES.HOMECOMPANY} component={HomeCompanyPage} />
     </div>
   </Router>
