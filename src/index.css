@@ -1,0 +1,198 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.landingPage {
+  background-color: #090979;
+  background-size: cover;
+  margin-top: -33px;
+  padding: 20px 70px;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 20px;
+  overflow: hidden;
+  background: #333;
+}
+
+h1::first-letter {
+  color: #5bffd3;
+  text-shadow: 2px 2px 5px #090979;
+  font-weight: bold;
+  font-size: 70px;
+}
+
+h2 {
+  color: #090979;
+  text-align: center;
+  margin-top: 40px;
+}
+h3 {
+  padding: 15px 0 15px 0;
+  background-color: aliceblue;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+h4 {
+  color: #735aed;
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+h6 {
+  text-align: right;
+  margin-right: 40px;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.mainButtonStyle {
+  background-color: #5bffd3;
+  color: #090979;
+  padding: 8px 15px;
+  margin: 4px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mainButtonStyle:hover {
+  background-color: #cb6ce6;
+  color: white;
+}
+.formStyle {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px 40px;
+  margin: 80px 50px 80px;
+}
+
+.linkStyle {
+  color: #cb6ce6;
+  font-weight: bold;
+}
+.linkStyle:hover {
+  color: #090979;
+  font-weight: bold;
+}
+
+.nav-links {
+  color: white;
+  padding: 10px;
+}
+.nav-links.current {
+  color: #5bffd3;
+}
+
+.nav-links:hover {
+  color: white;
+  background-color: #735aed;
+  text-decoration: none;
+}
+
+.space {
+  text-align: center;
+  padding: 60px;
+}
+
+.box-title {
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+}
+
+.box-title:link {
+  text-decoration: none;
+}
+
+.welcome-message {
+  color: #5bffd3;
+  text-shadow: 1px 1px 3px #090979;
+  text-align: center;
+  padding: 5px 0 30px 0;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.area-title,
+.location-title,
+.skills-title {
+  padding-left: 40px;
+  margin-bottom: 40px;
+  font-size: 40px;
+  text-decoration: underline;
+
+  font-weight: bold;
+}
+.area-title {
+  text-decoration-color: #cb6ce6;
+}
+
+.location-title {
+  text-decoration-color: #4fc8dc;
+}
+
+.skills-title {
+  text-decoration-color: #faa94a;
+}
+.details-title {
+  color: #735aed;
+  font-weight: bold;
+  font-size: medium;
+  display: inline;
+  padding-right: 10px;
+  padding-left: 8px;
+}
+
+.search-buttons {
+  background-color: #090979;
+  margin-top: 50px;
+  color: white;
+  border: 2px solid #5bffd3;
+  border-radius: 5px;
+}
+.search-links {
+  color: white;
+}
+
+.search-buttons:hover {
+  background-color: #735aed;
+  margin-top: 50px;
+  color: white;
+}
+.search-links:hover {
+  color: white;
+  text-decoration: none;
+}
+.card-title {
+  color: #735aed;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.card-buttons {
+  background-color: #cb6ce6;
+  color: white;
+  border: none;
+}
+.card-buttons:hover {
+  background-color: #090979;
+  color: white;
+  border: none;
+}
+.edit-profile {
+  border: none;
+}
