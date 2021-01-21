@@ -43,7 +43,7 @@ const ProjectsPage = () => {
               <tbody>
                 <tr>
                   <td>
-                    <a href={'../ProjectDetails?id=' + item.id}>
+                    <a href={'/ProjectDetails?id=' + item.id}>
                       {item.fields.projectTitle}
                     </a>
                   </td>
